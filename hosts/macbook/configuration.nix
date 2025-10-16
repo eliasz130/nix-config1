@@ -2,25 +2,16 @@
 
 {
   # System settings
-  system.stateVersion = "5";
+  system.stateVersion = 6;
   system.primaryUser = "elias";
 
   # Nix settings
   nix = {
-    settings = {
-      experimental-features = "nix-command flakes";
-      optimise.automatic = true;
-    };
-    gc = {
-      automatic = true;
-      interval = { Weekday = 7; };  # Weekly
-      options = "--delete-older-than 30d";
-    };
+    enable = false;
   };
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
-    # Essential CLI tools
     vim
     git
     curl
@@ -33,48 +24,6 @@
     nano
     speedtest-cli
     mas
-
-    # Development tools
-    docker
-    docker-compose
-    python310
-    nodejs
-    rust
-    cmake
-
-    # Infrastructure tools
-    kubectl
-    terraform
-    ansible
-
-    # Network / security
-    nmap
-    wireshark
-    tcpdump
-    netcat
-    aircrack-ng
-    hashcat
-    john
-    gobuster
-    unbound
-    z3
-
-    # Media tools
-    ffmpeg
-    yt-dlp
-    mpv
-    vlc
-    svt-av1
-    shaderc
-    libvmaf
-    libplacebo
-
-    # Compression utilities
-    p7zip
-    xz
-    zstd
-    lz4
-    brotli
   ];
 
   # macOS system defaults
@@ -106,9 +55,8 @@
 
   # Fonts
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" "Meslo" ]; })
-    fira-code
-    jetbrains-mono
+    nerd-fonts.jetbrains-mono
+    nerd-fonts.fira-code
   ];
 
   # Homebrew integration (for GUI apps)
@@ -117,15 +65,8 @@
     onActivation = {
       autoUpdate = true;
     };
-    taps = [
-      "homebrew/cask-fonts"
-      "homebrew/services"
-    ];
     casks = [
-      # Browsers
       "firefox"
-
-      # Utilities
       "1password"
       "1password-cli"
       "applite"
