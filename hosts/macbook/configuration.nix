@@ -3,12 +3,13 @@
 {
   # System settings
   system.stateVersion = 5;
+  system.primaryUser = "elias";
 
   # Nix settings
   nix = {
     settings = {
       experimental-features = "nix-command flakes";
-      auto-optimise-store = true;
+      optimise.automatic = true;
     };
 
     gc = {
@@ -40,8 +41,8 @@
     # Development
     docker
     docker-compose
-    python310Full
-    python311Full
+    python310
+    python311
     node
     rust
     ruby
@@ -71,7 +72,6 @@
     yt-dlp
     mpv
     vlc
-    rav1e
     svt-av1
     molten-vk
     shaderc
@@ -196,9 +196,6 @@
       "barrier"
     ];
   };
-
-  # Services
-  services.nix-daemon.enable = true;
 
   # Shell
   programs.zsh.enable = true;
