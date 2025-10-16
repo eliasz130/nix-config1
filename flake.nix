@@ -11,12 +11,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     
-    # Home manager for user environments
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    
     # Secrets management
     agenix = {
       url = "github:ryantm/agenix";
@@ -24,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, darwin, home-manager, agenix, ... }@inputs: 
+  outputs = { self, nixpkgs, nixpkgs-stable, darwin, agenix, ... }@inputs: 
   let
     system = "x86_64-linux";
     darwinSystem = "aarch64-darwin";  # or x86_64-darwin for Intel
@@ -90,22 +84,6 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/macbook/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.elias = import ./home/elias.nix;
-          }
-        ];
-      };
-    };
-
-    # Standalone home-manager for macOS (alternative to nix-darwin)
-    homeConfigurations = {
-      "elias@macbook" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${darwinSystem};
-        modules = [
-          ./home/elias.nix
         ];
       };
     };
