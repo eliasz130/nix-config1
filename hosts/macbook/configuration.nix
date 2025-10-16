@@ -2,7 +2,7 @@
 
 {
   # System settings
-  system.stateVersion = 5;
+  system.stateVersion = "5";
   system.primaryUser = "elias";
 
   # Nix settings
@@ -11,7 +11,6 @@
       experimental-features = "nix-command flakes";
       optimise.automatic = true;
     };
-
     gc = {
       automatic = true;
       interval = { Weekday = 7; };  # Weekly
@@ -21,33 +20,26 @@
 
   # System-wide packages
   environment.systemPackages = with pkgs; [
-    # CLI tools
+    # Essential CLI tools
     vim
-    neovim
     git
     curl
     wget
     htop
-    btop
     tmux
     ripgrep
-    fd
     jq
     yq
     nano
     speedtest-cli
     mas
 
-    # Development
+    # Development tools
     docker
     docker-compose
     python310
-    python311
     nodejs
     rust
-    ruby
-    lua
-    luajit
     cmake
 
     # Infrastructure tools
@@ -67,47 +59,22 @@
     unbound
     z3
 
-    # Media / multimedia
+    # Media tools
     ffmpeg
     yt-dlp
     mpv
     vlc
     svt-av1
-    molten-vk
     shaderc
     libvmaf
-    libvidstab
     libplacebo
 
-    # Libraries / compression
+    # Compression utilities
     p7zip
     xz
     zstd
     lz4
     brotli
-    libpng
-    libjpeg
-    freetype
-    fontconfig
-    cairo
-    harfbuzz
-    fribidi
-    imath
-    libtiff
-    libvpx
-    libvorbis
-    libsoxr
-    opus
-    speex
-    speexdsp
-    rav1e
-    dav1d
-    aom
-    libass
-    theora
-    x264
-    x265
-    xvid
   ];
 
   # macOS system defaults
@@ -154,9 +121,6 @@
       "homebrew/cask-fonts"
       "homebrew/services"
     ];
-    brews = [
-      # Add any missing CLI brews here
-    ];
     casks = [
       # Browsers
       "firefox"
@@ -200,10 +164,6 @@
   # Shell
   programs.zsh.enable = true;
   environment.shells = [ pkgs.zsh ];
-
-  programs.ssh.knownHosts = if builtins.pathExists ./ssh-known-hosts.nix
-    then import ./ssh-known-hosts.nix
-    else {};
 
   # User
   users.users.elias = {
