@@ -204,8 +204,9 @@
   programs.zsh.enable = true;
   environment.shells = [ pkgs.zsh ];
 
-  # SSH known hosts
-  programs.ssh.knownHosts = import ./ssh-known-hosts.nix;
+  programs.ssh.knownHosts = if builtins.pathExists ./ssh-known-hosts.nix
+    then import ./ssh-known-hosts.nix
+    else {};
 
   # User
   users.users.elias = {
