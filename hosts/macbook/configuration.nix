@@ -43,7 +43,7 @@
     docker-compose
     python310
     python311
-    node
+    nodejs
     rust
     ruby
     lua
