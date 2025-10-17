@@ -30,6 +30,7 @@
 	  })
     fastfetch
     eza
+    zsh-syntax-highlighting
   ];
 
   # macOS system defaults
