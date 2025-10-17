@@ -31,6 +31,7 @@
     fastfetch
     eza
     zsh-syntax-highlighting
+    maccy
   ];
 
   # macOS system defaults
@@ -90,7 +91,6 @@
       "keka"
       "libreoffice"
       "lulu"
-      "maccy"
       "microsoft-auto-update"
       "microsoft-powerpoint"
       "microsoft-teams"
