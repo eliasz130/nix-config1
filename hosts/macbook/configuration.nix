@@ -11,6 +11,9 @@
     enable = false;
   };
 
+  nix.extraOptions = ''
+    extra-platforms = x86_64-darwin aarch64-darwin
+  '';
   # System-wide packages
   environment.systemPackages = with pkgs; [
     vim
