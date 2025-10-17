@@ -87,7 +87,6 @@
       "element"
       "hiddenbar"
       "iina"
-      "jdownloader"
       "keka"
       "libreoffice"
       "lulu"
@@ -101,15 +100,13 @@
       "raycast"
       "slack"
       "steam"
-      "termius"
       "thunderbird"
       "utm"
       "vscodium"
       "vlc"
-      "loop"
-      "alt-tab"
       "barrier"
       "iterm2"
+      "hazeover"
     ];
   };
 
