@@ -1,0 +1,20 @@
+# ─────────────────────────────
+# Focus windows
+# ─────────────────────────────
+cmd + alt + ctrl - left  : yabai -m window --focus west
+cmd + alt + ctrl - right : yabai -m window --focus east
+cmd + alt + ctrl - up    : yabai -m window --focus north
+cmd + alt + ctrl - down  : yabai -m window --focus south
+
+# ─────────────────────────────
+# Swap windows
+# ─────────────────────────────
+cmd + alt + ctrl + shift - left  : yabai -m window --swap west
+cmd + alt + ctrl + shift - right : yabai -m window --swap east
+cmd + alt + ctrl + shift - up    : yabai -m window --swap north
+cmd + alt + ctrl + shift - down  : yabai -m window --swap south
+
+# ─────────────────────────────
+# Simple test binding
+# ─────────────────────────────
+cmd + alt + ctrl - t : open -a Terminal
