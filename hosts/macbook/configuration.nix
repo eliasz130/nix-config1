@@ -29,7 +29,7 @@
     speedtest-cli
     mas
     (yazi.override {
-		  _7zz = _7zz-rar;  # Support for RAR extraction
+		  _7zz = _7zz-rar;
 	  })
     fastfetch
     eza
@@ -85,7 +85,6 @@
       "firefox"
       "1password"
       "1password-cli"
-      "applite"
       "chatgpt"
       "claude"
       "cloudflare-warp"
@@ -101,17 +100,18 @@
       "microsoft-teams"
       "obsidian"
       "pearcleaner"
-      "protonvpn"
+      "mullvad-vpn"
       "raycast"
       "slack"
       "steam"
       "thunderbird"
       "utm"
       "vscodium"
-      "vlc"
       "barrier"
       "iterm2"
       "hazeover"
+      "cyberduck"
+      "soulseek"
     ];
   };
 
@@ -123,8 +123,8 @@
     enable = true;
     enableScriptingAddition = true;
     extraConfig = ''
-      yabai -m config focus_follows_mouse no
-      yabai -m config mouse_follows_focus yes
+      yabai -m config focus_follows_mouse autofocus
+      yabai -m config mouse_follows_focus true
       yabai -m config window_placement second_child
       yabai -m config window_opacity on
       yabai -m config window_opacity_duration 0.0
