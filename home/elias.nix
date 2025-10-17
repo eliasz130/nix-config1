@@ -1,4 +1,3 @@
-# Home Manager configuration - works on both macOS and NixOS
 { config, pkgs, lib, ... }:
 
 {
@@ -30,8 +29,6 @@
     
     # Homelab/infra specific
     wireguard-tools
-    ansible
-    terraform
     docker-compose
     
     # Network tools
@@ -48,8 +45,8 @@
   # Git configuration
   programs.git = {
     enable = true;
-    userName = "Elias";
-    userEmail = "your-email@example.com";
+    userName = "eliasz130";
+    userEmail = "eliaspublic@icloud.com";
     
     extraConfig = {
       init.defaultBranch = "main";
@@ -98,8 +95,8 @@
       gl = "git pull";
       
       # Homelab SSH shortcuts
-      ssh-infra = "ssh elias@192.168.1.75";
-      ssh-media = "ssh elias@192.168.1.76";
+      ssh-infra = "ssh server@192.168.1.75";
+      ssh-media = "ssh server@192.168.1.76";
       
       # Docker shortcuts
       dc = "docker-compose";
@@ -112,10 +109,10 @@
       rebuild-boot = "sudo nixos-rebuild boot --flake .#";
       
       # macOS nix-darwin shortcuts (if using darwin)
-      darwin-rebuild = "darwin-rebuild switch --flake .#macbook";
+      darwin-rebuild = "sudo darwin-rebuild switch --flake .config/nix-config#macbook";
     };
     
-    initExtra = ''
+    initContent = ''
       # Initialize zoxide
       eval "$(zoxide init zsh)"
       
@@ -128,32 +125,30 @@
       # SSH to homelab with WireGuard preference
       ssh-homelab() {
         if ping -c 1 -W 1 10.13.13.1 &> /dev/null; then
-          ssh elias@10.13.13.$1
+          ssh server@10.13.13.$1
         else
-          ssh elias@192.168.1.7$1
+          ssh server@192.168.1.7$1
         fi
-      }
-      
-      # Quick docker-compose wrapper
-      dce() {
-        docker-compose exec $1 ${2:-bash}
       }
       
       # Update all the things
       update-all() {
-        echo "Updating nix..."
-        nix flake update
-        
-        ${if pkgs.stdenv.isDarwin then ''
-          echo "Updating homebrew..."
-          brew update && brew upgrade
-        '' else ""}
-        
-        echo "Rebuilding system..."
-        ${if pkgs.stdenv.isDarwin then 
-          "darwin-rebuild switch --flake ~/.config/nix-config#macbook" 
-        else 
-          "sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)"}
+          echo "Updating Nix flake..."
+          nix flake update --flake ~/.config/nix-config
+
+          if [[ "$(uname)" == "Darwin" ]]; then
+              if command -v brew &> /dev/null; then
+                  echo "Updating Homebrew..."
+                  brew update && brew upgrade
+              else
+                  echo "Homebrew not found, skipping..."
+              fi
+              echo "Rebuilding macOS system (requires sudo)..."
+              sudo darwin-rebuild switch --flake ~/.config/nix-config#macbook
+          else
+              echo "Rebuilding NixOS system..."
+              sudo nixos-rebuild switch --flake /etc/nixos#$(hostname)
+          fi
       }
     '';
     
@@ -164,9 +159,6 @@
         "git"
         "docker"
         "docker-compose"
-        "kubectl"
-        "terraform"
-        "ansible"
         "sudo"
         "history"
       ];
@@ -234,30 +226,30 @@
     
     matchBlocks = {
       "homelab-*" = {
-        user = "elias";
+        user = "server";
         identityFile = "~/.ssh/id_ed25519";
         forwardAgent = true;
       };
       
       "elias-server infra" = {
         hostname = "192.168.1.75";
-        user = "elias";
+        user = "server";
       };
       
       "elias-server2 media" = {
         hostname = "192.168.1.76";
-        user = "elias";
+        user = "server";
       };
       
       # WireGuard addresses
       "infra-wg" = {
         hostname = "10.13.13.1";
-        user = "elias";
+        user = "server";
       };
       
       "media-wg" = {
         hostname = "10.13.13.5";
-        user = "elias";
+        user = "server";
       };
     };
   };
@@ -271,8 +263,6 @@
     
     plugins = with pkgs.vimPlugins; [
       vim-nix
-      vim-terraform
-      ansible-vim
     ];
   };
 

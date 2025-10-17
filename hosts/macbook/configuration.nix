@@ -14,6 +14,7 @@
   nix.extraOptions = ''
     extra-platforms = x86_64-darwin aarch64-darwin
   '';
+
   # System-wide packages
   environment.systemPackages = with pkgs; [
     vim
@@ -136,4 +137,6 @@
     home = "/Users/elias";
     shell = pkgs.zsh;
   };
+
+  home-manager.backupFileExtension = "backup";
 }

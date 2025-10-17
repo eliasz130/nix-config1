@@ -28,8 +28,7 @@
   let
     system = "x86_64-linux";
     darwinSystem = "aarch64-darwin";  # or x86_64-darwin for Intel
-    
-    # Common configuration shared across all systems
+
     commonModules = [
       ./modules/common/users.nix
       agenix.nixosModules.default
