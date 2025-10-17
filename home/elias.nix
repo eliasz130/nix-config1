@@ -40,6 +40,8 @@
     ffmpeg
     mediainfo
     yt-dlp
+    
+    home-manager
   ];
 
   # Git configuration
@@ -113,6 +115,9 @@
     };
     
     initContent = ''
+      # Ensure Home Manager CLI is in PATH
+      export PATH="$HOME/.nix-profile/bin:$PATH"
+
       # Initialize zoxide
       eval "$(zoxide init zsh)"
       
@@ -223,6 +228,7 @@
   # SSH configuration
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     
     matchBlocks = {
       "homelab-*" = {
@@ -266,13 +272,13 @@
     ];
   };
 
-  # direnv for automatic environment switching
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
 
-  # Let Home Manager manage itself
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+  };
 }
