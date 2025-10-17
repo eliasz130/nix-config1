@@ -61,6 +61,8 @@
     loginwindow.GuestEnabled = false;
   };
 
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   # Fonts
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
